@@ -139,7 +139,7 @@ function courseHandler1(course, index){ // truyền vaò (item, index)
 var newCourses1 = courses.map(courseHandler1);
 console.log(newCourses1);
 
-//reduce - thay thế dòng for để tính tổng
+//reduce - thay thế dòng for để tính tổng hoặc lấy ra giá trị từ object 
 // function coinHandler(accumulator, currentValue, currentIndex, originArray) {
 //     var total = accumulator + currentValue.coin;
 
@@ -151,7 +151,55 @@ console.log(newCourses1);
 // })
 // return total;
 // };
-var totalCoin = courses.reduce(function coinHandler(accumulator, currentValue, currentIndex, originArray) {
-    return accumulator + currentValue.coin
-}, 0); //inital value - không bắt buộc
+var totalCoin = courses.reduce(function coinHandler(total, value) {
+    return total + value.coin
+}, 0); //inital value - không bắt buộc, nhưng nếu muốn nhận lại giá trị thế nào thì phải truyền vào giá trị đó
 console.log(totalCoin);
+
+var sumTwoNumber = [1, 2, 3, 4, 5].reduce(function(accumulator, currentValue) {
+    return accumulator + currentValue;
+});
+
+//Flat - làm phẳng mảng
+var depthArray = [1, 2, [3, 4], 5, 6, [7, 8, 9]];
+
+var flatArray = depthArray.reduce(function(flatOutout, depthItem){
+    return flatOutout.concat(depthItem);
+}, []);
+
+console.log(flatArray);
+
+//lấy ra các khoá học và đưa vào 1 mảng mới
+var topics = [
+    {
+        topic: "Front-end",
+        courses: [
+            {
+                id: 1,
+                title: "HTML, CSS"
+            },
+            {
+                id: 2,
+                title: "Javascript"
+            }
+        ]
+    },
+    {
+        topic: "Back-end",
+        courses: [
+            {
+                id: 1,
+                title: "PHP"
+            },
+            {
+                id: 2,
+                title: "NodeJS"
+            }
+        ]
+    }
+];
+
+var newCourses2 = topics.reduce(function(course, topic) {
+    return course.concat(topic.courses)
+}, []);
+console.log(newCourses2);
